@@ -1,11 +1,10 @@
 require "csv"
 require "tty-prompt"
-
 prompt = TTY::Prompt.new
 system('clear')
+
 user_select = prompt.select("Welcome to notifier, what are you?", %w(Store_user Customer_user))
 system('clear')
-
 
 loop = true
 if user_select == 'Store_user'
@@ -15,7 +14,7 @@ if user_select == 'Store_user'
         if store_select == 'View_Orders'
             data = CSV.read("Orders.csv", :headers => true)
             data.each do |row|
-            puts "Product: #{row['product']}, Quantity: #{row['qty']}, Phone Number: #{row['phoneNumber']}"
+            puts "Product: #{row['product']}, Quantity: #{row['quantity']}, Phone Number: #{row['phnumber']}"
             end
         
             else_select = prompt.select('Anything else?', %w(yes no))
@@ -77,6 +76,11 @@ if user_select == 'Store_user'
     end
 end
 
+
+
+
+#customer function
+
 if user_select == 'Customer_user'
 
     puts "Welcome to Notifier"
@@ -86,7 +90,7 @@ if user_select == 'Customer_user'
         prods.each { |row| puts "#{row["num"]}. #{row["prod"]}"}
     puts ""
     puts "Enter the number of the product you'd like to order:"
-        num = gets.to_i
+        num = gets.chomp.to_i
         system('clear')
     puts "You are ordering #{prods[num - 1]["prod"]}"
     puts ""
@@ -102,7 +106,7 @@ if user_select == 'Customer_user'
     puts ""
     puts "Good-bye."
     CSV.open("Orders.csv", "a") do |csv|
-        csv << ["#{prods[num - 1]["prod"]},#{prod},#{ph}"]
+        csv << ["#{prods[num - 1]["prod"]}","#{prod}","#{ph}"]
     end
 
 end   
