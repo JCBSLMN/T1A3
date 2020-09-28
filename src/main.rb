@@ -69,7 +69,7 @@ if user_select == 'Store_user'
             end
 
             if else_select == 'no'
-                puts "Good-bye"
+                puts "Good-bye."
                 loop == false
                 break
             end
@@ -78,24 +78,31 @@ if user_select == 'Store_user'
 end
 
 if user_select == 'Customer_user'
-puts "Welcome to Notifier"
-puts ""
-puts "These are our current products:"
-prods = CSV.parse(File.read("Products.csv"), headers: true)
-prods.each { |row| puts "#{row["num"]}. #{row["prod"]}"}
 
-puts ""
-puts "Enter the number of the product you'd like to order:"
-num = gets.to_i
+    puts "Welcome to Notifier"
+    puts ""
+    puts "These are our current products:"
+        prods = CSV.parse(File.read("Products.csv"), headers: true)
+        prods.each { |row| puts "#{row["num"]}. #{row["prod"]}"}
+    puts ""
+    puts "Enter the number of the product you'd like to order:"
+        num = gets.to_i
+        system('clear')
+    puts "You are ordering #{prods[num - 1]["prod"]}"
+    puts ""
+    puts "Enter the quantity you'd like to order:"
+        prod = gets.chomp
+    puts ""
+    puts "Enter the number you'd like to be notified on:"
+        ph = gets.chomp
+        system('clear')
+    puts "Your order of #{prod} #{prods[num - 1]["prod"]} has been entered."
+    puts ""
+    puts "You will recieve a notification on #{ph} when ready."
+    puts ""
+    puts "Good-bye."
+    CSV.open("Orders.csv", "a") do |csv|
+        csv << ["#{prods[num - 1]["prod"]},#{prod},#{ph}"]
+    end
 
-system('clear')
-
-puts "you are ordering #{prods[num - 1]["prod"]}"
-puts "Enter the quantity you'd like to order:"
-prod = gets
-puts "Enter the number you'd like to be notified on:"
-ph = gets
-puts "Your order has been entered. You will recieve a notification when ready."
-puts "good-bye"
-puts arr
 end   
