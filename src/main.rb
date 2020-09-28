@@ -2,8 +2,9 @@ require "csv"
 require "tty-prompt"
 
 prompt = TTY::Prompt.new
-
+system('clear')
 user_select = prompt.select("Welcome to notifier, what are you?", %w(Store_user Customer_user))
+system('clear')
 
 
 loop = true
@@ -77,9 +78,24 @@ if user_select == 'Store_user'
 end
 
 if user_select == 'Customer_user'
-puts "welcome to Notifier"
-puts "Please select what you would like to order"
-@arr = [1,4,5]
-prod = prompt.select("", @arr)
-puts prod
+puts "Welcome to Notifier"
+puts ""
+puts "These are our current products:"
+prods = CSV.parse(File.read("Products.csv"), headers: true)
+prods.each { |row| puts "#{row["num"]}. #{row["prod"]}"}
+
+puts ""
+puts "Enter the number of the product you'd like to order:"
+num = gets.to_i
+
+system('clear')
+
+puts "you are ordering #{prods[num - 1]["prod"]}"
+puts "Enter the quantity you'd like to order:"
+prod = gets
+puts "Enter the number you'd like to be notified on:"
+ph = gets
+puts "Your order has been entered. You will recieve a notification when ready."
+puts "good-bye"
+puts arr
 end   
