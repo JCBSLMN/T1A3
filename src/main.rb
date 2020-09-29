@@ -102,30 +102,40 @@ end
 
 
 #customer function
-
+loop = true
 if user_select == 'Customer_user'
-    orders = Csv.new("Orders.csv")
-    prods = Csv.new("Products.csv")
-    puts "Welcome to Notifier"
-    puts ""
-    puts "These are our current products:"
-    puts prods.data
-    puts ""
-    puts "Enter the number of the product you'd like to order:"
-    num = gets.chomp.to_i
-    system('clear')
-    puts "You are ordering #{prods.data[num - 1]["product"]}" 
-    puts ""
-    puts "Enter the quantity you'd like to order:"
-    amount = gets.chomp
-    puts ""
-    puts "Enter the number you'd like to be notified on:"
-    ph = gets.chomp
-    system('clear')
-    puts "Your order of #{amount} #{prods.data[num - 1]["product"]} has been entered."
-    puts ""
-    puts "You will recieve a notification on #{ph} when ready."
-    puts ""
-    puts "Good-bye."
-    orders.close("Orders.csv", [prods.data[num - 1]["product"],amount,ph])
-end   
+    while loop == true
+        orders = Csv.new("Orders.csv")
+        prods = Csv.new("Products.csv")
+        puts "Welcome to Notifier"
+        puts ""
+        puts "These are our current products:"
+        puts prods.data
+        puts ""
+        puts "Enter the number of the product you'd like to order:"
+        num = gets.chomp.to_i
+        system('clear')
+        puts "You are ordering #{prods.data[num - 1]["product"]}" 
+        puts ""
+        puts "Enter the quantity you'd like to order:"
+        amount = gets.chomp
+        puts ""
+        puts "Enter the number you'd like to be notified on:"
+        ph = gets.chomp
+        system('clear')
+        puts "Your order of #{amount} #{prods.data[num - 1]["product"]} has been entered."
+        puts ""
+        puts "You will recieve a notification on #{ph} when ready."
+        puts ""
+        orders.close("Orders.csv", [prods.data[num - 1]["product"],amount,ph])
+        else_select = prompt.select('Anything else?', %w(yes no))
+            if else_select == 'yes'
+            end
+            if else_select == 'no'
+                puts""
+                puts "Good-bye."
+                loop == false
+                break
+            end
+        end
+    end        
