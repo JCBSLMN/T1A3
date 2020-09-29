@@ -82,7 +82,6 @@ if user_select == 'Store_user'
                 puts "Enter the number of the product you'd like to remove:"
                 num = gets.chomp.to_i 
                 prods.remove(num)
-            
             end
 
             
