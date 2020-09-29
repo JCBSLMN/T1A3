@@ -36,16 +36,21 @@ if user_select == 'Store_user'
             num = gets.chomp.to_i
             puts "Enter how many were delivered:"
             amount = gets.chomp.to_i
+            
             n = 0
-            orders.each do |row|
-                if "#{row["product"]}" == "#{prods[num - 1]["prod"]}" && amount >= "#{row["quantity"]}".to_i
-                    #send sweet text message to phone number
-                    puts "notified!"
-                    amount = amount - "#{row["quantity"]}".to_i 
-                    row.delete("n")
+            orders.data.each do |order|
+                if order["product"] == prods.data[num - 1]['product'] && amount >= order["quantity"].to_i
+                    amount = amount - "#{order["quantity"]}".to_i 
+                    orders.data.delete(n)
                 end
                 n += 1
-            end    
+            end   
+            CSV.open("Orders.csv", "w+") do |csv|
+                csv << ["product", "quantity", 'phnumber']
+                orders.data.each do |row|
+                csv << [row["product"], row["quantity"], row["phnumber"]]
+                end
+            end
             puts "Customers have been notified"
             puts ""
 

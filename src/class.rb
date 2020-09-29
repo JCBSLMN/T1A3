@@ -35,20 +35,3 @@ class Csv
 
 end
 
-# orders.close("Orders.csv", [prods.data[num - 1]["product"],amount,ph])
-
-
-# To a file
-# CSV.open("path/to/file.csv", "wb") do |csv|
-#     csv << ["row", "of", "CSV", "data"]
-#     csv << ["another", "row"]
-#     # ...
-#   end
-  
-
-# data = CSV.read("Orders.csv", :headers => true)
-            # data.each do |row|
-            # puts "Product: #{row['product']}, Quantity: #{row['quantity']}, Phone Number: #{row['phnumber']}"
-            # end
-
-
