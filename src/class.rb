@@ -12,6 +12,16 @@ class Csv
         end
     end
 
+    def remove(num)
+        data.each do |row|
+            if row["number"] == num.to_s
+                data.delete(num - 1)
+                puts data
+            end
+        end
+        
+    end   
+
 end
 
 
