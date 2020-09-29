@@ -1,10 +1,12 @@
 require_relative "class.rb"
 require "csv"
 require "tty-prompt"
+require "colorize"
+require "mail"
 prompt = TTY::Prompt.new
 system('clear')
 
-user_select = prompt.select("Welcome to notifier, what are you?", %w(Store_user Customer_user))
+user_select = prompt.select("Welcome to notifier, what are you?".colorize(:color => :white, :background => :red), %w(Store_user Customer_user))
 system('clear')
 
 loop = true
@@ -13,14 +15,14 @@ if user_select == 'Store_user'
     while loop == true
         orders = Csv.new("Orders.csv")
         prods = Csv.new("Products.csv")
-        puts store_select = prompt.select("what would you like to do?", %w(View_Orders Notify_Customers Edit_Products))
+        puts store_select = prompt.select("what would you like to do?".colorize(:color => :white, :background => :red), %w(View_Orders Notify_Customers Edit_Products))
         if store_select == 'View_Orders'
             puts orders.data
-            else_select = prompt.select('Anything else?', %w(yes no))
+            else_select = prompt.select('Anything else?'.colorize(:color => :white, :background => :red), %w(yes no))
             if else_select == 'yes'
             end
             if else_select == 'no'
-                puts "Good-bye"
+                puts "Good-bye".colorize(:color => :white, :background => :red)
                 loop == false
                 break
             end      
@@ -28,13 +30,13 @@ if user_select == 'Store_user'
 
         if store_select == 'Notify_Customers'
             system('clear')
-            puts 'Current Products:'
+            puts 'Current Products:'.colorize(:color => :white, :background => :red)
             puts ""
             puts prods.data
             puts""
-            puts "Enter the number of the product that was delivered:"
+            puts "Enter the number of the product that was delivered:".colorize(:color => :white, :background => :red)
             num = gets.chomp.to_i
-            puts "Enter how many were delivered:"
+            puts "Enter how many were delivered:".colorize(:color => :white, :background => :red)
             amount = gets.chomp.to_i
             
             n = 0
@@ -125,7 +127,7 @@ if user_select == 'Customer_user'
         puts "Enter the quantity you'd like to order:"
         amount = gets.chomp
         puts ""
-        puts "Enter the number you'd like to be notified on:"
+        puts "Enter the email you'd like to be notified on:"
         ph = gets.chomp
         system('clear')
         puts "Your order of #{amount} #{prods.data[num - 1]["product"]} has been entered."

@@ -32,6 +32,5 @@ class Csv
             # csv << ["number,product", data]
         end
     end   
-
 end
 
