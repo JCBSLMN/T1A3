@@ -1,12 +1,14 @@
 require_relative "class.rb"
+require_relative "mailgem.rb"
 require "csv"
 require "tty-prompt"
 require "colorize"
 require "mail"
+require "tty-spinner"
 prompt = TTY::Prompt.new
 system('clear')
 
-user_select = prompt.select("Welcome to notifier, what are you?".colorize(:color => :white, :background => :red), %w(Store_user Customer_user))
+user_select = prompt.select("Welcome to Disco Biscuits, what are you?".colorize(:color => :white, :background => :red), %w(Store_user Customer_user))
 system('clear')
 
 loop = true
@@ -39,18 +41,27 @@ if user_select == 'Store_user'
             puts "Enter how many were delivered:".colorize(:color => :white, :background => :red)
             amount = gets.chomp.to_i
             
-            n = 0
+            
             orders.data.each do |order|
+                n = 0
                 if order["product"] == prods.data[num - 1]['product'] && amount >= order["quantity"].to_i
-                    amount = amount - "#{order["quantity"]}".to_i 
+                    Mail.deliver do
+                        from     'jacobsolomonow@gmail.com'
+                        to       "#{order["email"]}"
+                        subject  'Order is ready'
+                        body     "Your order of #{order["quantity"]} #{order["product"]} can be picked up."
+                    end
                     orders.data.delete(n)
-                end
-                n += 1
-            end   
+                    amount = amount - "#{order["quantity"]}".to_i 
+                    else
+                    n += 1
+                end 
+            end         
+
             CSV.open("Orders.csv", "w+") do |csv|
-                csv << ["product", "quantity", 'phnumber']
+                csv << ["product", "quantity", 'email']
                 orders.data.each do |row|
-                csv << [row["product"], row["quantity"], row["phnumber"]]
+                csv << [row["product"], row["quantity"], row["email"]]
                 end
             end
             puts "Customers have been notified"
@@ -114,7 +125,7 @@ if user_select == 'Customer_user'
     while loop == true
         orders = Csv.new("Orders.csv")
         prods = Csv.new("Products.csv")
-        puts "Welcome to Notifier"
+        puts "Welcome to Disco Biscuits"
         puts ""
         puts "These are our current products:"
         puts prods.data

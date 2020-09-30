@@ -1,8 +1,3 @@
-product,quantity,phnumber
-oat,2,242134
-oat,1,242134
-oat,2,242134
-oat,3,242134
-oat,1,242134
-oat,2,242134
-oat,3,242134
+product,quantity,email
+vanilla,3,cab022012@coderacademy.edu.au
+oat,5,cab022012@coderacademy.edu.au

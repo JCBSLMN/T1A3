@@ -10,9 +10,9 @@ Mail.defaults do
                            :enable_starttls_auto => true  }
 end
 
-Mail.deliver do
-  from     'jacobsolomonow@gmail.com'
-  to       'jacobsolomon6@icloud.com'
-  subject  'test'
-  body     "test"
-end
+# Mail.deliver do
+#   from     'jacobsolomonow@gmail.com'
+#   to       'jacobsolomon6@icloud.com'
+#   subject  'test'
+#   body     "test"
+# end
