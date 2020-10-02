@@ -8,7 +8,7 @@ require "tty-spinner"
 prompt = TTY::Prompt.new
 system('clear')
 
-user_select = prompt.select("Welcome to Disco Biscuits, what are you?".colorize(:color => :white, :background => :red), %w(Store_user Customer_user))
+user_select = prompt.select("Welcome to the biscuit factory, what are you?".colorize(:color => :white, :background => :red), %w(Store_user Customer_user))
 system('clear')
 
 loop = true
@@ -40,8 +40,8 @@ if user_select == 'Store_user'
             num = gets.chomp.to_i
             puts "Enter how many were delivered:".colorize(:color => :white, :background => :red)
             amount = gets.chomp.to_i
-            
-            
+            spinner = TTY::Spinner.new
+            spinner.run do |spinner|
             orders.data.each do |order|
                 n = 0
                 if order["product"] == prods.data[num - 1]['product'] && amount >= order["quantity"].to_i
@@ -64,6 +64,7 @@ if user_select == 'Store_user'
                 csv << [row["product"], row["quantity"], row["email"]]
                 end
             end
+        end
             puts "Customers have been notified"
             puts ""
 
@@ -125,7 +126,7 @@ if user_select == 'Customer_user'
     while loop == true
         orders = Csv.new("Orders.csv")
         prods = Csv.new("Products.csv")
-        puts "Welcome to Disco Biscuits"
+        puts "Welcome to the biscuit factory!"
         puts ""
         puts "These are our current products:"
         puts prods.data
