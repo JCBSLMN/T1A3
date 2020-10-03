@@ -8,7 +8,7 @@ require "tty-spinner"
 prompt = TTY::Prompt.new
 system('clear')
 
-user_select = prompt.select("Welcome to the biscuit factory, what are you?".colorize(:color => :white, :background => :red), %w(Store_user Customer_user))
+user_select = prompt.select("Welcome to the biscuit, what are you?".colorize(:color => :white, :background => :red), %w(Store_user Customer_user))
 system('clear')
 
 loop = true
