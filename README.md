@@ -1,3 +1,6 @@
+## R4 - link to GitHub:
+https://github.com/JCBSLMN/T1A3
+
 # Notifier app Software Development Plan
 ## R5 - Statement of purpose:
 ---
@@ -44,37 +47,57 @@ Customers will enter credentials to allow them access to the app. They will be d
 Store:
 The store user will be diplayed 3 options using TTY-prompt, 'View Orders', 'Notify Customers', 'Edit Product List'
 
-If they select 'View orders it will display them a list of current orders, and pressing 'q' will take them back to the options list.
+If they select 'View orders it will display them a list of current orders.
 
-Selecting 'Notify Customers' will prompt user to select what product arrived and enter how many of the product were delivered.
+Selecting 'Notify Customers' will prompt user to select what product arrived and enter how many of the product were delivered/made.
 
 'Edit Product List' will allow users to select between adding or removing an item. If removing an option they will be prompted to select what item, and if adding an item they will be prompted to enter product name with 'gets'
 
 ### How errors will be handled by the application and displayed to the user -
-Login:
-users will be prompted to enter credentials and if incorrect be notified of incorrect user credentials and be prompted to re-enter.
-
-Customers:
-Customers will be able to enter any name they want, however the phone number they enter will be checked that it fits valid mobile phone number formatting, starting with 04 and being 10 digits long. If invalid they are promted to re-enter a valid number.
+Ideally i will have error control throught the code with any incorrect inputs displaying a message to instruct on what the correct input should be.
 
 
 ---
 ## R8 - Diagram of the control flow of your application:
 ---
-pretty diagram
+![alt text](docs/flow_chart.jpeg "Title")
 
 ---
 ## R9 - Implementation plan:
 ---
-link to trello
-
+https://trello.com/b/rbeskEqR/notifier
 ---
 ## R10 - Help documentation:
 ---
 ### Steps to install the application -
+This application can be downloaded from GitHub. Once you have downloaded you branch and navigated to the folder, the file can be run from the terminal with the insturction 'ruby main.rb' if you'd prefer to install all required gems yourself. These can be found listed in the dependencies below.
+
+Arguements can be passed when running the file:
+- Passing '-h' or '--help' following 'ruby main.rb' will display a help menu.
+- Passing '-s' will open in store mode
+- Passing '-c' will open in customer mode
+
+An exectubale has been made that can install the require gems for you. This can be run once you have navigated to the correct folder and can be run with the command './run_file.sh'
+
 
 ### Any dependencies required by the application to operate -
+#### gems -
+"tty", "~> 0.7.0"
+"rspec", "~> 3.9"
+"tty-prompt", "~> 0.12.0"
+"colorize", "~> 0.8.1"
+"mail", "~> 2.7"
+"tty-spinner", "~> 0.4.1"
+
+#### ruby -
+ruby 2.6.3p62
 
 ### Any system/hardware requirements -
+#### OS - 
+- Only tested on macOS Catalina Version 10.15.6. May not be compatible on other OS.
 
+#### minimum harware requirements:
+- 8 MHz 68000 processor 
+- 128k of RAM 
+- and a 400k disk drive
 ---
