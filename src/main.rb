@@ -1,15 +1,38 @@
 require_relative "class.rb"
 require_relative "mailgem.rb"
+require_relative "help.rb"
 require "csv"
 require "tty-prompt"
 require "colorize"
 require "mail"
 require "tty-spinner"
+
+user_select = ''
+
+if ARGV.include? "-h"
+    usage
+    return
+
+elsif ARGV.include? "--help"
+    usage
+    return
+
+elsif ARGV.include? "-s"
+    prompt = TTY::Prompt.new
+    user_select = 'Store_user'
+
+elsif ARGV.include? "-c"
+    prompt = TTY::Prompt.new
+    user_select = 'Customer_user'
+    
+
+elsif ARGV[0].nil?
 prompt = TTY::Prompt.new
 system('clear')
 
 user_select = prompt.select("Welcome to the biscuit, what are you?".colorize(:color => :white, :background => :red), %w(Store_user Customer_user))
 system('clear')
+end
 
 loop = true
 if user_select == 'Store_user'
@@ -37,9 +60,9 @@ if user_select == 'Store_user'
             puts prods.data
             puts""
             puts "Enter the number of the product that was delivered:".colorize(:color => :white, :background => :red)
-            num = gets.chomp.to_i
+            num = STDIN.gets.chomp.to_i
             puts "Enter how many were delivered:".colorize(:color => :white, :background => :red)
-            amount = gets.chomp.to_i
+            amount = STDIN.gets.chomp.to_i
             spinner = TTY::Spinner.new
             spinner.run do |spinner|
             orders.data.each do |order|
@@ -89,7 +112,7 @@ if user_select == 'Store_user'
 
             if edit_select == 'Add_product'
                 puts "What is the name of the product you want to add?"
-                new_prod = gets.chomp
+                new_prod = STDIN.gets.chomp
                 n = 0
                 prods.data.each do |row|
                     n += 1
@@ -99,7 +122,7 @@ if user_select == 'Store_user'
             
             if edit_select == 'Remove_product'
                 puts "Enter the number of the product you'd like to remove:"
-                num = gets.chomp.to_i 
+                num = STDIN.gets.chomp.to_i 
                 prods.remove(num)
             end
 
@@ -132,15 +155,15 @@ if user_select == 'Customer_user'
         puts prods.data
         puts ""
         puts "Enter the number of the product you'd like to order:"
-        num = gets.chomp.to_i
+        num = STDIN.gets.chomp.to_i
         system('clear')
         puts "You are ordering #{prods.data[num - 1]["product"]}" 
         puts ""
         puts "Enter the quantity you'd like to order:"
-        amount = gets.chomp
+        amount = STDIN.gets.chomp
         puts ""
         puts "Enter the email you'd like to be notified on:"
-        ph = gets.chomp
+        ph = STDIN.gets.chomp
         system('clear')
         puts "Your order of #{amount} #{prods.data[num - 1]["product"]} has been entered."
         puts ""

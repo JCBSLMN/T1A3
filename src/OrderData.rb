@@ -1,19 +1,19 @@
-require "csv"
+# require "csv"
 
-class Orders
+# class Orders
 
-    def initialize
-    end
+#     def initialize
+#     end
 
-    data = CSV.read("Orders.csv", :headers => true)
-
-
-        data.each do |row|
-            puts "Product: #{row['product']}, Quantity: #{row['qty']}, Phone Number: #{row['phoneNumber']}"
-        end
-    end
-
-end
+#     data = CSV.read("Orders.csv", :headers => true)
 
 
-Orders.list
+#         data.each do |row|
+#             puts "Product: #{row['product']}, Quantity: #{row['qty']}, Phone Number: #{row['phoneNumber']}"
+#         end
+#     end
+
+# end
+
+
+# Orders.list
