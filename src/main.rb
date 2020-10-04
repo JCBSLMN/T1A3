@@ -9,13 +9,14 @@ require "tty-spinner"
 
 def anything_else
     prompt = TTY::Prompt.new
-    else_select = prompt.select('Anything else?'.colorize(:color => :white, :background => :red), %w(yes no))
+    else_select = prompt.select('Anything else?'.highlight, %w(yes no))
             if else_select == 'yes'
+                clear
             end
             if else_select == 'no'
-                puts "Good-bye".colorize(:color => :white, :background => :red)
+                puts "Good-bye".highlight
                 loop == false
-                # break
+                exit
             end 
 end
 
@@ -28,6 +29,10 @@ end
 class String
     def highlight
         colorize(:color => :white, :background => :red)
+    end
+
+    def error
+        colorize(:color => :red, :background => :white)
     end
 end
 
@@ -65,9 +70,11 @@ if user_select == 'Store_user'
     while loop == true
         orders = Csv.new("Orders.csv")
         prods = Csv.new("Products.csv")
-        puts store_select = prompt.select("what would you like to do?".highlight, %w(View_Orders Notify_Customers Edit_Products))
+        puts store_select = prompt.select("What would you like to do?".highlight, %w(View_Orders Notify_Customers Edit_Products))
         if store_select == 'View_Orders'
-            puts orders.data  
+            clear
+            puts orders.data
+            puts "\n"  
             anything_else
         end
 
@@ -77,7 +84,7 @@ if user_select == 'Store_user'
             puts prods.data
             puts "\nEnter the number of the product that was delivered:".highlight
             num = STDIN.gets.chomp.to_i
-            puts "Enter how many were delivered:".highlight
+            puts "\nEnter how many were delivered:".highlight
             amount = STDIN.gets.chomp.to_i
             spinner = TTY::Spinner.new
             spinner.run do |spinner|
@@ -114,27 +121,49 @@ if user_select == 'Store_user'
             puts "Current Products:\n"
             puts prods.data
 
-            edit_select = prompt.select("\nWhat would you like to do?", %w(Remove_product Add_product))
+            edit_select = prompt.select("\nWhat would you like to do?".highlight, %w(Remove_product Add_product))
 
             if edit_select == 'Add_product'
-                puts "What is the name of the product you want to add?"
-                new_prod = STDIN.gets.chomp
-                n = 0
-                prods.data.each do |row|
-                    n += 1
+                verify_p = false
+                while verify_p == false
+                    puts "\nWhat is the name of the product you want to add?"
+                    new_prod = STDIN.gets.chomp
+                    if new_prod.length > 0
+                        verify_p = true 
+                    else 
+                        puts "Product name should contain something".error
+                    end
                 end
-                prods.close("Products.csv", [n + 1, new_prod])
-            end
-            
-            if edit_select == 'Remove_product'
-                puts "Enter the number of the product you'd like to remove:"
-                num = STDIN.gets.chomp.to_i 
-                prods.remove(num)
+                    n = 0
+                    prods.data.each do |row|
+                        n += 1
+                    end
+                    prods.close("Products.csv", [n + 1, new_prod])
+                    anything_else
+                
+                
             end
 
+            loop2 = true
+            if edit_select == 'Remove_product' 
+                while loop2 == true
+                    puts "\nEnter the number of the product you'd like to remove. Any invalid input will result in nothing being removed:"
+                    num = STDIN.gets.chomp.to_i
+                    prods.data.each do |prod| prod["number"].to_i
+                        if num == prod["number"].to_i
+                            prods.remove(num)
+                            clear
+                            break
+                        end
+                        loop2 = false
+                    end
+                    
+                end 
+                anything_else
+            end
+             
             
             
-            anything_else
         end
     end
 end
@@ -152,18 +181,55 @@ if user_select == 'Customer_user'
         puts "Welcome to the biscuit factory!\n\n"
         puts "These are our current biscuits:\n\n"
         puts prods.data 
-        puts "\nEnter the number of the biscuit you'd like to order:"
-        num = STDIN.gets.chomp.to_i
+
+        verify_b = false
+        while verify_b == false
+            puts "\nEnter the number of the biscuit you'd like to order:".highlight
+            num = STDIN.gets.chomp.to_i
+            prods.data.each do |prod| prod["number"].to_i
+                if num == prod["number"].to_i
+                    verify_b = true
+                    break
+                end
+            end
+            puts "\nplease enter valid number".error
+        end
         clear
         puts "You are ordering #{prods.data[num - 1]["product"]} bicuits. \n\n" 
-        puts "Enter the quantity you'd like to order:"
-        amount = STDIN.gets.chomp
-        puts "\nEnter the email you'd like to be notified on:"
-        ph = STDIN.gets.chomp
+
+        verify_q = false
+        while verify_q == false
+            puts "Enter the quantity you'd like to order:".highlight
+            amount = STDIN.gets.chomp
+            if amount.length == 0 
+                puts "Needs to be a number more than 0  \n\n".error
+            elsif amount == nil
+                puts "Needs to be a number more than 0  \n\n".error
+            elsif amount.to_i <= 0
+                puts "Needs to be a number more than 0  \n\n".error
+            else
+                verify_q = true 
+            end
+        end
+
+        verify_email = false
+        while verify_email == false
+            puts "\nEnter the email you'd like to be notified on:".highlight
+            ph = STDIN.gets.chomp
+            if ph.include?('@') && ph.length > 6
+                verify_email = true 
+            elsif ph.length < 6
+                puts "email should be longer".error
+            else 
+                puts "email should contain an @ symbol".error
+            end
+        end
+
         clear
         puts "Your order of #{amount} #{prods.data[num - 1]["product"]} biscuits has been entered.\n\n"
         puts "You will recieve a notification on #{ph} when ready.\n\n"
         orders.close("Orders.csv", [prods.data[num - 1]["product"],amount,ph])
         anything_else
+        
     end        
 end

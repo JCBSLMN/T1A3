@@ -11,6 +11,7 @@ class Csv
             csv << row 
         end
     end
+5
 
     def remove(num)
         data.each do |row|
