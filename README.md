@@ -7,6 +7,8 @@ https://github.com/JCBSLMN/T1A3
 ### What the application will do -
 The application is designed to allow easy ordering of product for customers and easy notifcation for the client. Customers are able to place orders for products and be notified once the product has arrived and is ready for pick up. The application will automatically notify the right number of people once delivery data has been entered into the app, and remove orders automatically. Permissions will be split between two classes, with customers only being able to see what products are available and make an order, and the store being able to see what orders have been made and also make modifications to the available item list.
 
+As application is in beta user verification has not been completed for ease of testing.
+
 ### The problem it will solve and explain why you are developing it -
 I currently interact with a business that requires me to place orders for product by calling them, and once the product has been delivered to the store they must call me to notify me it has arrived. 
 
@@ -23,8 +25,6 @@ The target audience will use the application on a daily basis to see what orders
 ---
 ## R6 - List of features that will be included in the application:
 ---
-Both:
-- Enter credentials to access different parts of the app
 
 Customers:
 - See what products are available to order
