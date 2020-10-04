@@ -21,9 +21,17 @@ end
 
 def clear
     system('clear')
-    puts "NOTIFIER APP\n".colorize(:color => :white, :background => :red)
+    puts "NOTIFIER APP\n".highlight
 
 end
+
+class String
+    def highlight
+        colorize(:color => :white, :background => :red)
+    end
+end
+
+
 
 user_select = ''
 
@@ -47,7 +55,7 @@ elsif ARGV.include? "-c"
 elsif ARGV[0].nil?
 prompt = TTY::Prompt.new
 clear
-user_select = prompt.select("Welcome to the biscuit, what are you?".blue, %w(Store_user Customer_user))
+user_select = prompt.select("Welcome to the biscuit factory! What are you?".highlight , %w(Store_user Customer_user))
 clear
 end
 
@@ -57,7 +65,7 @@ if user_select == 'Store_user'
     while loop == true
         orders = Csv.new("Orders.csv")
         prods = Csv.new("Products.csv")
-        puts store_select = prompt.select("what would you like to do?".colorize(:color => :white, :background => :red), %w(View_Orders Notify_Customers Edit_Products))
+        puts store_select = prompt.select("what would you like to do?".highlight, %w(View_Orders Notify_Customers Edit_Products))
         if store_select == 'View_Orders'
             puts orders.data  
             anything_else
@@ -65,11 +73,11 @@ if user_select == 'Store_user'
 
         if store_select == 'Notify_Customers'
             clear
-            puts "Current Products:\n".colorize(:color => :white, :background => :red)
+            puts "Current Products:\n".highlight
             puts prods.data
-            puts "\nEnter the number of the product that was delivered:".colorize(:color => :white, :background => :red)
+            puts "\nEnter the number of the product that was delivered:".highlight
             num = STDIN.gets.chomp.to_i
-            puts "Enter how many were delivered:".colorize(:color => :white, :background => :red)
+            puts "Enter how many were delivered:".highlight
             amount = STDIN.gets.chomp.to_i
             spinner = TTY::Spinner.new
             spinner.run do |spinner|
@@ -153,8 +161,8 @@ if user_select == 'Customer_user'
         puts "\nEnter the email you'd like to be notified on:"
         ph = STDIN.gets.chomp
         clear
-        puts "Your order of #{amount} #{prods.data[num - 1]["product"]} biscuits has been entered.\n"
-        puts "You will recieve a notification on #{ph} when ready.\n"
+        puts "Your order of #{amount} #{prods.data[num - 1]["product"]} biscuits has been entered.\n\n"
+        puts "You will recieve a notification on #{ph} when ready.\n\n"
         orders.close("Orders.csv", [prods.data[num - 1]["product"],amount,ph])
         anything_else
     end        
