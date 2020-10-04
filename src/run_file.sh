@@ -34,10 +34,7 @@ printf '\e[44m   \__ \ / / / // /_/ // /_/ / / /  \__ \  / /   / / / /    / /| |
 printf '\e[44m  ___/ // /_/ // ____// __  /_/ /  ___/ / / /  _/ / / /___ / ___ | / /  / /___ / /_/ / \e[0m \n'
 printf '\e[44m /____/ \____//_/    /_/ /_//___/ /____/ /_/  /___/ \____//_/  |_|/_/  /_____//_____/  \e[0m \n'
 
-gem install mail
-gem install tty-spinner
-gem install colorize
-gem instal tty-prompt
+bundle install
 printf 'It is about to get sophisticated'
 sleep 0.75
 printf 'It is about to get sophisticated'
@@ -117,5 +114,5 @@ printf '\e[8;2000;2000t'
 printf '\e[8;50;90t'
 sleep 1
 
-cd src
+
 ruby main.rb

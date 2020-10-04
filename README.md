@@ -79,7 +79,7 @@ Arguements can be passed when running the file:
 - Passing '-s' will open in store mode
 - Passing '-c' will open in customer mode
 
-An exectubale has been made that can install the require gems for you. This can be run once you have navigated to the correct folder and can be run with the command './run_file.sh'
+An exectubale has been made that can install the require gems for you. This can be run once you have navigated to the SRC folder and can be run with the command './run_file.sh'
 
 This is an application built for notification and can be applicable to whatever you would like, simply by changing the store name and available products.
 
