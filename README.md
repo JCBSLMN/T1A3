@@ -1,5 +1,6 @@
 ## R4 - link to GitHub:
 https://github.com/JCBSLMN/T1A3
+![alt text](docs/github.png "Title")
 
 # Notifier app Software Development Plan
 ## R5 - Statement of purpose:
@@ -66,6 +67,7 @@ Ideally i will have error control throught the code with any incorrect inputs di
 ## R9 - Implementation plan:
 ---
 https://trello.com/b/rbeskEqR/notifier
+![alt text](docs/trello.png "Title")
 ---
 ## R10 - Help documentation:
 ---
@@ -78,6 +80,8 @@ Arguements can be passed when running the file:
 - Passing '-c' will open in customer mode
 
 An exectubale has been made that can install the require gems for you. This can be run once you have navigated to the correct folder and can be run with the command './run_file.sh'
+
+This is an application built for notification and can be applicable to whatever you would like, simply by changing the store name and available products.
 
 
 ### Any dependencies required by the application to operate -
