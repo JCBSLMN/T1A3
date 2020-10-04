@@ -17,11 +17,11 @@ describe 'select product' do
         orders = Csv.new('Orders.csv')
         prods = Csv.new("Products.csv")
         num = 1
-        expect(prods.data[num - 1]["product"]).to eql('vanilla')
+        expect(prods.data[num - 1]["product"]).to eql('wchoc')
         num = 2
-        expect(prods.data[num - 1]["product"]).to eql('choc-chip')
+        expect(prods.data[num - 1]["product"]).to eql('vanilla')
         num = 3
-        expect(prods.data[num - 1]["product"]).to eql('oat')
+        expect(prods.data[num - 1]["product"]).to eql('choc')
     end
 end
 
@@ -57,9 +57,9 @@ describe 'order contains email' do
     it 'emails should contain @' do
     orders = Csv.new('Orders.csv')
     prods = Csv.new("Products.csv")
+    expect(orders.data[0]["email"]).to include('@')
     expect(orders.data[1]["email"]).to include('@')
     expect(orders.data[2]["email"]).to include('@')
     expect(orders.data[3]["email"]).to include('@')
-    expect(orders.data[4]["email"]).to include('@')
 end
 end
