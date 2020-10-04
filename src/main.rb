@@ -82,10 +82,35 @@ if user_select == 'Store_user'
             clear
             puts "Current Products:\n".highlight
             puts prods.data
-            puts "\nEnter the number of the product that was delivered:".highlight
-            num = STDIN.gets.chomp.to_i
-            puts "\nEnter how many were delivered:".highlight
-            amount = STDIN.gets.chomp.to_i
+            verify_n = false
+            while verify_n == false
+                puts "\nEnter the number of the product that was delivered:".highlight
+                num = STDIN.gets.chomp.to_i
+                prods.data.each do |prod| prod["number"].to_i
+                    if num == prod["number"].to_i
+                        verify_n = true
+                        break
+                    end
+                end
+                puts "\nplease enter valid number".error
+            end
+            clear
+            
+
+            verify_d = false
+            while verify_d == false
+                puts "\nEnter how many were delivered:".highlight
+                amount = STDIN.gets.chomp.to_i
+                if amount == nil
+                    puts "Needs to be a number more than 0  \n\n".error
+                elsif amount <= 0
+                    puts "Needs to be a number more than 0  \n\n".error
+                else
+                    verify_d = true 
+                end
+            end
+
+            # amount = STDIN.gets.chomp.to_i
             spinner = TTY::Spinner.new
             spinner.run do |spinner|
             orders.data.each do |order|
@@ -99,7 +124,6 @@ if user_select == 'Store_user'
                     end
                     amount = amount - order["quantity"].to_i
                     orders.data.delete(n)
-                    puts orders.data
                 else
                     n += 1
                 end 
