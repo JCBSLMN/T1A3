@@ -12,7 +12,7 @@ def usage
         - Passing '-s' will open in store mode
         - Passing '-c' will open in customer mode
 
-        An exectubale has been made that can install the required gems for you. This can be run once you have navigated to the correct folder and can be run with the command './run_file.sh'
+        An exectubale has been made that can install the required gems for you. This can be run once you have navigated to the src folder and can be run with the command './run_file.sh'
 
 
         Any dependencies required by the application to operate -

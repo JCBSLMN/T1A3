@@ -82,12 +82,12 @@ An exectubale has been made that can install the require gems for you. This can 
 
 ### Any dependencies required by the application to operate -
 #### gems -
-"tty", "~> 0.7.0"
-"rspec", "~> 3.9"
-"tty-prompt", "~> 0.12.0"
-"colorize", "~> 0.8.1"
-"mail", "~> 2.7"
-"tty-spinner", "~> 0.4.1"
+- tty, ~> 0.7.0
+- rspec, ~> 3.9
+- tty-prompt, ~> 0.12.0
+- colorize, ~> 0.8.1
+- mail, ~> 2.7
+- tty-spinner, ~> 0.4.1
 
 #### ruby -
 ruby 2.6.3p62

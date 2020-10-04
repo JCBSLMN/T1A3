@@ -110,29 +110,39 @@ if user_select == 'Store_user'
                 end
             end
 
+    
+
             # amount = STDIN.gets.chomp.to_i
             spinner = TTY::Spinner.new
             spinner.run do |spinner|
-            orders.data.each do |order|
-                n = 0
-                if order["product"] == prods.data[num - 1]['product'] && amount >= order["quantity"].to_i
-                    Mail.deliver do
-                        from     'jacobsolomonow@gmail.com'
-                        to       "#{order["email"]}"
-                        subject  'Order is ready'
-                        body     "Your order of #{order["quantity"]} #{order["product"]} can be picked up."
-                    end
-                    amount = amount - order["quantity"].to_i
-                    orders.data.delete(n)
-                else
-                    n += 1
+            n = -1
+            arr = []
+           
+                orders.data.each do |order|
+                    if order["product"] == prods.data[num - 1]['product'] && amount >= order["quantity"].to_i
+                        Mail.deliver do
+                            from     'jacobsolomonow@gmail.com'
+                            to       "#{order["email"]}"
+                            subject  'Order is ready'
+                            body     "Your order of #{order["quantity"]} #{order["product"]} can be picked up."
+                        end
+                        amount = amount - order["quantity"].to_i 
+                        n += 1
+                        arr << n
+                    else
+                        n += 1
+                    end   
+                    
                 end 
-            end         
+                arr.reverse_each do |num|
+                orders.data.delete(num)  
+                end      
+            
 
             CSV.open("Orders.csv", "w+") do |csv|
                 csv << ["product", "quantity", 'email']
                 orders.data.each do |row|
-                csv << [row["product"], row["quantity"], row["email"]]
+                    csv << [row["product"], row["quantity"], row["email"]]
                 end
             end
         end
@@ -171,7 +181,7 @@ if user_select == 'Store_user'
             loop2 = true
             if edit_select == 'Remove_product' 
                 while loop2 == true
-                    puts "\nEnter the number of the product you'd like to remove. Any invalid input will result in nothing being removed:"
+                    puts "\nEnter the number of the product you'd like to remove. Any invalid input will result in nothing being removed:".highlight
                     num = STDIN.gets.chomp.to_i
                     prods.data.each do |prod| prod["number"].to_i
                         if num == prod["number"].to_i
